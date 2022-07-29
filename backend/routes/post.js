@@ -1,13 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Post = require('../models/post');
 const {uploadPost, voteOnPost, reportPost } = require("../controllers/post");
+const multer = require("multer");
+const upload = multer();
 
-router.post('/upload',uploadPost);
-router.put('/:vote', voteOnPost);
-router.put('/report/:id',reportPost);
-// put - vote
-// report - put
-//
+router.post('/upload',upload.single('image'),uploadPost);
+router.put('/vote/:id', voteOnPost);
+router.put('/report/:id', reportPost);
 
 module.exports = router;
