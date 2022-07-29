@@ -43,7 +43,12 @@ const voteOnPost = async (req,res) => {
             if(type == 'upvote') ++result.upvotes;
             else if(type == 'downvote') ++result.downvotes;
             await result.save();
-            const response = {'Status':'Success', 'Vote type': type, 'upvotes':result.upvotes, 'downvotes':result.downvotes};
+            const response = {
+                'Status':'Success', 
+                'Vote type': type, 
+                'upvotes':result.upvotes, 
+                'downvotes':result.downvotes
+            };
             res.status(200).json(response);
         }
         else {
@@ -55,9 +60,24 @@ const voteOnPost = async (req,res) => {
     }
 }
 
-const reportPost = (req,res) => {
-    const postId = req.params.id;
-    res.json(postId + " reported");
+const reportPost = async (req,res) => {
+    try {
+        const postID = req.params.id;
+        const post = await Post.findOne({postID: postID});
+        if(post)
+        {
+            ++post.reportCount;
+            await post.save();
+            const response = {'Status':'Success', 'Details':'Reported post'};
+            res.status(200).json(response);
+        } else {
+            const response = {'Status':'Failure', 'Details':'Post not Found'};
+            res.status(404).json(response);
+        }
+    } catch(err) {
+        const response = {'Status':'Failure', 'Details':err.message};
+        res.status(500).json(response);
+    }
 }
 
 module.exports = {
