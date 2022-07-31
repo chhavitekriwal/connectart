@@ -1,3 +1,5 @@
+
+
 const getUserDetails = (req, res) => {
   try {
     res.status(200).json("Lelo mere details");
