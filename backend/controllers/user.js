@@ -1,8 +1,8 @@
 
-
 const getUserDetails = (req, res) => {
   try {
-    res.status(200).json("Lelo mere details");
+    console.log('User ID: ', req.params.userId);
+    res.status(200).json({status: 'ok'});
   } catch (err) {
     res.status(500).json({message: err.message ?? "Server Error"});
   }

@@ -6,6 +6,7 @@ const Post = require('../models/post');
 const uploadPost = async (req,res) =>{ 
     try {   
         const image = req.file.buffer;
+        if(!image) throw new Error('Image not provided');
         data.append('image',image);
         const headers = {
             headers: { 
@@ -13,12 +14,13 @@ const uploadPost = async (req,res) =>{
                 ...data.getHeaders()
             }
         }
+        const userID = req.session.getUserId();
         const uploadData = await axios.post('https://api.imgur.com/3/image',data,headers);
         const post = new Post({
             postID: uploadData.data.data.id,
-            postedBy: "me",
-            upvotes: 0,
-            downvotes: 0,
+            postUserID: userID,
+            upvoteCount: 0,
+            downvoteCount: 0,
             reportCount: 0
         })
         await post.save();
@@ -40,14 +42,14 @@ const voteOnPost = async (req,res) => {
         const result = await Post.findOne({postID: postID});
         if(result)
         {
-            if(type == 'upvote') ++result.upvotes;
-            else if(type == 'downvote') ++result.downvotes;
+            if(type == 'upvote') ++result.upvoteCount;
+            else if(type == 'downvote') ++result.downvoteCount;
             await result.save();
             const response = {
                 'Status':'Success', 
                 'Vote type': type, 
-                'upvotes':result.upvotes, 
-                'downvotes':result.downvotes
+                'upvotes':result.upvoteCount, 
+                'downvotes':result.downvoteCount
             };
             res.status(200).json(response);
         }

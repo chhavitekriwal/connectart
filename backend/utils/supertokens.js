@@ -3,7 +3,6 @@ const { express } = require('supertokens-node/lib/build/framework');
 const Session = require('supertokens-node/recipe/session');
 const thirdPartyEmailPassword = require('supertokens-node/recipe/thirdpartyemailpassword');
 
-const User = require('../models/user');
 
 const initSupertokens = () => {
     supertokens.init({
@@ -27,11 +26,11 @@ const initSupertokens = () => {
                         return {
                             ...originalImplementation,
                             thirdPartySignInUp: async function (input) {
-                                console.log(input);
+                                //console.log(input);
                                 return await originalImplementation.thirdPartySignInUp(input);
                             },
                             emailPasswordSignUp:async function(input){
-                                console.log(input);
+                                //console.log(input);
                                 return await originalImplementation.emailPasswordSignUp(input);
                             }
                         }
