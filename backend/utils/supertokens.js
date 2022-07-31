@@ -10,7 +10,7 @@ const initSupertokens = () => {
         framework: "express",
         supertokens: {
             connectionURI: process.env.SUPERTOKENS_URI,
-            apiKey: process.env.SUPERTOKENS_APIKEY
+            apiKey: process.env.SUPERTOKENS_API_KEY
         },
         appInfo: {
             appName: "connectart",
