@@ -29,7 +29,7 @@
  In the terminal, type the following code:
 
  ```bash 
-   yarn install
+   yarn
    yarn dev 
  ``` 
  This would run the backend locally on port 8000.
@@ -61,7 +61,7 @@
   
   `{post_id}` = id of the post provided by imgur
 
-  **GET** `/users/{user_id}` : Get details of the user
+  **GET** `/users/{user_id}` : Get all the posts and best post by the user
 
  
   
