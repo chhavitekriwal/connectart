@@ -1,4 +1,3 @@
-
 const getUserDetails = (req, res) => {
   try {
     console.log('User ID: ', req.params.userId);
