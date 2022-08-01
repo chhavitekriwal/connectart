@@ -85,5 +85,5 @@ const reportPost = async (req,res) => {
 module.exports = {
     uploadPost,
     voteOnPost,
-    reportPost
+    reportPost,
 }
